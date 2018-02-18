@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER } from './types';
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
 
 const API_URL = 'http://localhost:3090';
 
@@ -15,13 +15,21 @@ export function signinUser(history, { email, password }) {
                 // - update state to indicate user is authenticated
                 dispatch({ type: AUTH_USER });
                 // - save JWT token
+                localStorage.setItem('token', response.data.token);
                 // - redirect to route '/feature'
                 history.push('/feature');
             })
             .catch((err) => {
                 // If request is bad...
                 // - show an error to the user
-                dispatch({ type: UNAUTH_USER, payload: err });
+                dispatch(authError('Bad login info'));
             });
+    };
+}
+
+export function authError(error) {
+    return {
+        type: AUTH_ERROR,
+        payload: error
     };
 }
