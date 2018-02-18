@@ -13,4 +13,8 @@ class Feature extends Component {
     }
 }
 
-export default Feature;
+function mapStateToProps(state) {
+    return {};
+}
+
+export default connect(mapStateToProps)(Feature);
