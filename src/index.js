@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Switch, Route, IndexRoute } from 'react-router-dom';
 
 import Header from './components/Header';
+import SignIn from './components/auth/SignIn';
 import App from './components/app';
 import reducers from './reducers';
 
@@ -16,6 +17,7 @@ ReactDOM.render(
       <div>
         <Header />
         <Switch>
+          <Route path="/signin" component={SignIn} />
           <Route path="/" component={App} />
         </Switch>
       </div>
