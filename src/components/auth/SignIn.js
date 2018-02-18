@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import * as actions from '../../actions';
 
 class SignIn extends Component {
     renderField(field) {
@@ -12,10 +15,8 @@ class SignIn extends Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
-
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            <form onSubmit={this.props.handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
                     name="email"
                     label="Email:"
@@ -34,7 +35,7 @@ class SignIn extends Component {
     }
 
     handleFormSubmit({ email, password }) {
-        console.log(email, password);
+        this.props.signinUser(this.props.history, { email, password });
     }
 }
 
@@ -42,4 +43,6 @@ class SignIn extends Component {
 
 export default reduxForm({
     form: 'signin'
-})(SignIn);
+})(
+    withRouter(connect(null, actions)(SignIn))
+);
