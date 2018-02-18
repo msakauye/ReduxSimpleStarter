@@ -80,9 +80,13 @@ function validate(values) {
     return errors;
 }
 
+function mapStateToProps(state) {
+    return { errorMessage: state.auth.error };
+}
+
 export default reduxForm({
     form: 'signup',
     validate
 })(
-    connect(null, actions)(SignUp)
+    connect(mapStateToProps, actions)(SignUp)
 );

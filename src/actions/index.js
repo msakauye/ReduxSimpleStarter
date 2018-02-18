@@ -46,8 +46,15 @@ export function signoutUser() {
 }
 
 export function signupUser(history, { email, password }) {
-    console.log('signupUser called', history);
-    return {
-        type: AUTH_USER
+    return function(dispatch) {
+        axios.post(`${API_URL}/signup`, { email, password })
+            .then((response) => {
+                dispatch({ type: AUTH_USER });
+                localStorage.setItem('token', response.data.token);
+                history.push('/feature');
+            })
+            .catch((error) => {
+                dispatch(authError('Email already exists'));                
+            });
     };
 }
