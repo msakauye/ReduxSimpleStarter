@@ -13,11 +13,20 @@ import SignUp from './components/auth/SignUp';
 import App from './components/app';
 import reducers from './reducers';
 import requireAuth from './components/auth/RequireAuth';
+import { AUTH_USER } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+// if we have a token, consider the user to be logged in
+const token = localStorage.getItem('token');
+if (token) {
+  // we need to update application state
+  store.dispatch({ type: AUTH_USER });
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
       <div>
         <Header />
