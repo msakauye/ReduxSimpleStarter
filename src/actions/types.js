@@ -1,4 +1,4 @@
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
-export const SIGNOUT_USER = 'SIGNOUT_USER';
+export const FETCH_FEATURE = 'FETCH_FEATURE';

@@ -2,7 +2,8 @@ import axios from 'axios';
 import { 
     AUTH_USER, 
     UNAUTH_USER, 
-    AUTH_ERROR
+    AUTH_ERROR,
+    FETCH_FEATURE
 } from './types';
 
 const API_URL = 'http://localhost:3090';
@@ -57,4 +58,21 @@ export function signupUser(history, { email, password }) {
                 dispatch(authError('Email already exists'));                
             });
     };
+}
+
+export function fetchFeature() {
+    return function(dispatch) {
+        axios.get(`${API_URL}`, {
+                headers: {
+                    authorization: localStorage.getItem('token')
+                }
+            })
+            .then((response) => {
+                dispatch({ type: FETCH_FEATURE, payload: response.data.message });
+            })
+            .catch((error) => {
+                console.log(error);
+                // dispatch(signoutUser());
+            });
+    }
 }
