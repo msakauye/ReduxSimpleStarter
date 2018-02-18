@@ -44,3 +44,10 @@ export function signoutUser() {
         type: UNAUTH_USER
     };
 }
+
+export function signupUser(history, { email, password }) {
+    console.log('signupUser called', history);
+    return {
+        type: AUTH_USER
+    };
+}
